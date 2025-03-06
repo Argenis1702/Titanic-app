@@ -5,8 +5,21 @@ import pickle
 import streamlit as st
 
 # Load the trained model
-with open("titanic_model.pkl", "rb") as file:
-    model, scaler = pickle.load(file)
+import os
+import pickle
+
+# Get the absolute path of the current file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(current_dir, "titanic_model.pkl")
+
+# Load the model with error handling
+try:
+    with open(model_path, "rb") as file:
+        model, scaler = pickle.load(file)
+    print("Model loaded successfully")
+except FileNotFoundError:
+    print(f"Error: The file {model_path} was not found")
+
 
 # Streamlit App
 def main():
